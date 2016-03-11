@@ -1,82 +1,65 @@
-exports.array = function(string) {
+function getPrice(dealString) {
+  var numbers = dealString.split(' for R');
+  return price = (numbers[1] / numbers[0]).toFixed(2);
+}
 
-  var tempArray = string.split(' for R').join();
-  var temp1Array = tempArray.split(',');
+function whichDeal(string) {
+
+  var dealList = string.split(', ');
+  var dealMap = {};
+  for (i = 0; i < dealList.length; i++) {
+    var dealString = dealList[i];
+    dealMap[getPrice(dealString)] = dealString;
+  }
+  return dealMap;
+}
+
+exports.array = function(dealMap) {
+
   var avoArray = [];
 
-  for (i = 0; i < temp1Array.length; i++) {
-    avoArray.push(Number(temp1Array[i]));
+  for (var key in dealMap) {
+    avoArray.push(dealMap[key]);
   }
 
   return (avoArray);
 }
 
-exports.price = function(array) {
+exports.price = function(dealMap) {
 
-  priceArray = [];
-  for (i = 0; i < array.length; i++) {
-    if (i % 2 !== 0) {
-      priceArray.push((array[i] / array[i - 1]).toFixed(2))
-    }
+  var priceArray = [];
+
+  for (var price in dealMap) {
+    priceArray.push(Number(price));
   }
 
-  return (priceArray)
+  return (priceArray);
 }
 
-function whichDeal(price) {
+exports.cheapDeal = function(priceArray, dealMap) {
 
-  switch (price) {
-    case 3:
-      return "1 for R3 deal";
-      break;
-    case 3.5:
-      return "2 for R7 deal";
-      break;
-    case 3.33:
-      return "3 for R10 deal";
-      break;
-    case 2.9:
-      return "5 for R14.50 deal";
-      break;
-  }
-}
+  var cheapPrice = Math.min.apply(null, priceArray);
+  var cheapDeal = dealMap[cheapPrice];
 
-exports.cheapDeal = function(array) {
-
-  var price = 0;
-
-  for (i = 1; i < array.length; i++) {
-    if (array[i] < array[i - 1]) {
-      price = array[i];
-    }
-  }
-
-  return (whichDeal(price));
+  return cheapDeal;
 
 }
 
-exports.expDeal = function(array) {
+exports.expDeal = function(priceArray, dealMap) {
 
-  var price = 0;
+  var expPrice = Math.max.apply(null, priceArray);
+  var expDeal = dealMap[expPrice];
 
-  for (i = 1; i < array.length; i++) {
-    if (array[i] > array[i - 1]) {
-      price = array[i];
-    }
-  }
-
-  return (whichDeal(price));
+  return expDeal;
 
 }
 
-exports.avgPrice = function(array){
+exports.avgPrice = function(priceArray) {
 
-  var sum = 0;
-  for (i = 0; i < array.length; i++){
-    sum += array[i]
-  }
+    var totalPrice = priceArray.reduce(function(total, number) {
+        return total + number;
+      });
 
-  var pricesAvg = (sum/array.length).toFixed(2);
-
-  return pricesAvg;
+      var averagePrice = (totalPrice / priceArray.length).toFixed(2);
+      return averagePrice;
 }
