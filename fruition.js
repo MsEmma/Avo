@@ -1,56 +1,59 @@
-var fruitSellerList = {
-  "woolingsworth": {
+var data = {
+  "Woolingsworth": {
     "apples": 4,
     "bananas": 3,
     "oranges": 12
   },
 
-  "chockers": {
+  "Chockers": {
     "bananas": 2,
     "apples": 5,
     "oranges": 4
   },
 
-  "pickle pay": {
+  "Pickle_pay": {
     "bananas": 4,
     "oranges": 7
   },
 
-  "shopwrong": {
+  "Shopwrong": {
     "apples": 2,
     "bananas": 3
   },
 
-  "kwakspar": {
+  "Kwakspar": {
     "oranges": 9,
     "apples": 4
   }
-}
-
-var woolies = fruitSellerList.woolingsworth;
-var chock = fruitSellerList.chockers;
-var pickle = fruitSellerList.picklepay;
-var shopw = fruitSellerList.shopwrong;
-var kwak = fruitSellerList.kwakspar;
-
-
-var storeMap = {
-
-  0 : 'Woolingsworth',
-  1 : 'Chockers',
-  2 : 'Pickle Pay',
-  3 : 'Shopwrong',
-  4 : 'Kwakspar'
-
 };
 
-var orangePrices = {};
+function getFruitMap(fruits) {
 
-for (var i in woolies) {
-  if (i === "oranges") {
+  var fruitMap = {};
 
-    orangePrices[storeMap[0]] = woolies[i];
+  for (var shop in data) {
+    for (var fruit in data[shop]) {
+      if (fruit === fruits) {
+        fruitMap[data[shop][fruit]] = shop;
+      }
+    }
   }
+
+  return fruitMap;
 }
 
-console.log(orangePrices);
+var orangesMap = getFruitMap("oranges");
+
+exports.cheapOrangeSeller = function(orangesMap) {
+
+  orangesPricesArray = [];
+
+  for (var price in orangesMap) {
+    orangesPricesArray.push(Number(price));
+  }
+
+  var cheapestPrice = Math.min.apply(null, orangesPricesArray);
+  cheapestOrangesSeller = orangesMap[cheapestPrice];
+
+  return cheapestOrangesSeller;
+}
