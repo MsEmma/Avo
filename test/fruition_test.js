@@ -4,17 +4,16 @@ var fruition = require('../fruition');
 describe('fruition', function() {
 
   it('should return the seller of the cheapest oranges', function() {
-    var result = fruition.cheapOrangeSeller({
-      '4': 'Chockers',
-      '7': 'Pickle_pay',
-      '9': 'Kwakspar',
-      '12': 'Woolingsworth'
-    });
+    var result = fruition.cheapOrangeSeller({ oranges: { '4': 'Chockers', '7': 'Pickle_pay', '9': 'Kwakspar', '12': 'Woolingsworth' },
+      apples: { '2': 'Shopwrong', '4': 'Kwakspar', '5': 'Chockers' },
+      bananas: { '2': 'Chockers', '3': 'Shopwrong', '4': 'Pickle_pay' } });
     assert.equal(result, 'Chockers');
   })
 
   it('should return the prices and sellers of apples, order ascending by price', function() {
-    var result = fruition.appleSellersPricesAsc(fruitSellerList);
+    var result = fruition.appleSellersPricesAsc({ oranges: { '4': 'Chockers', '7': 'Pickle_pay', '9': 'Kwakspar', '12': 'Woolingsworth' },
+      apples: { '2': 'Shopwrong', '4': 'Kwakspar', '5': 'Chockers' },
+      bananas: { '2': 'Chockers', '3': 'Shopwrong', '4': 'Pickle_pay' } });
     assert.equal(result, [{
       'shopwrong': 2,
       'woolingsworth': 4,
