@@ -1,4 +1,10 @@
-var sellerFruitList = {
+var inputJSON = {
+
+  "Woolingsworth": {
+    "apples": 4,
+    "bananas": 3,
+    "oranges": 12
+  },
 
   "Chockers": {
     "bananas": 2,
@@ -19,56 +25,132 @@ var sellerFruitList = {
   "Kwakspar": {
     "oranges": 9,
     "apples": 4
-  },
-
-  "Woolingsworth": {
-    "apples": 4,
-    "bananas": 3,
-    "oranges": 12
   }
-
 };
 
-//function getFruitPriceList(sellerFruitList) {
+function getFruitList() {
 
-var fruitPriceList = {};
-var orangesPriceList = {};
-var applesPriceList = {};
-var bananasPriceList = {};
+  var fruitList = {};
 
-for (var shop in sellerFruitList) {
-  for (var fruit in sellerFruitList[shop]) {
-    if (fruit === "oranges") {
-      orangesPriceList[sellerFruitList[shop][fruit]] = shop;
-    } else if (fruit === "apples") {
-      applesPriceList[sellerFruitList[shop][fruit]] = shop;
-    } else if (fruit === "bananas") {
-      bananasPriceList[sellerFruitList[shop][fruit]] = shop;
+  for (var shop in inputJSON) {
+    for (var fruit in inputJSON[shop]) {
+      if (fruitList[fruit] === undefined) {
+        fruitList[fruit] = [];
+      }
     }
   }
-}
 
-fruitPriceList["oranges"] = orangesPriceList;
-fruitPriceList["apples"] = applesPriceList;
-fruitPriceList["bananas"] = bananasPriceList;
-
-console.log(applesPriceList);
-// }
-
-// fruitPriceList ={ oranges: { '4': 'Chockers', '7': 'Pickle_pay', '9': 'Kwakspar', '12': 'Woolingsworth' },
-//   apples: { '2': 'Shopwrong', '4': 'Kwakspar', '4': 'Woolingsworth', '5': 'Chockers' },
-//   bananas: { '2': 'Chockers', '3': 'Shopwrong', '3': 'Woolingsworth', '4': 'Pickle_pay' } }
-
-exports.cheapOrangeSeller = function(fruitPriceList) {
-
-  orangesPricesArray = [];
-
-  for (var price in fruitPriceList.oranges) {
-    orangesPricesArray.push(Number(price));
+  for (var shop in inputJSON) {
+    for (var fruit1 in inputJSON[shop]) {
+      for (var fruit in fruitList) {
+        if (fruit === fruit1) {
+          fruitList[fruit].push({
+            "shop": shop,
+            "price": inputJSON[shop][fruit1]
+          });
+        }
+      }
+    }
   }
 
-  var cheapestPrice = Math.min.apply(null, orangesPricesArray);
-  cheapestOrangesSeller = fruitPriceList.oranges[cheapestPrice];
+  return fruitList;
 
-  return cheapestOrangesSeller;
+}
+
+exports.cheapOrangesSeller = function(fruitList) {
+
+  fruitList.oranges.sort(function(a, b) {
+    return a.price - b.price
+  })
+
+  var cheapOranShop = fruitList.oranges[0];
+  var cheapestOrangesSeller = cheapOranShop.shop
+
+  return (cheapestOrangesSeller);
+
+}
+
+exports.appleSellersPricesAsc = function(fruitList) {
+
+  fruitList.apples.sort(function(a, b) {
+    return a.price - b.price
+  })
+
+  return (fruitList.apples);
+
+}
+
+exports.appleSellersPricesDesc = function(fruitList) {
+
+  fruitList.apples.sort(function(a, b) {
+    return b.price - a.price
+  })
+
+  return (fruitList.apples);
+
+}
+
+exports.cheapestFruit = function(fruitList) {
+
+  var priceList = [];
+
+  for (fruit in fruitList) {
+    for (i = 0; i < fruitList[fruit].length; i++) {
+      priceList.push(fruitList[fruit][i].price);
+    }
+  }
+
+  var cheapestFruits = [];
+
+  var cheapestPrice = Math.min.apply(null, priceList);
+
+  for (fruit in fruitList) {
+    for (i = 0; i < fruitList[fruit].length; i++) {
+      if (fruitList[fruit][i].price === 2) {
+        cheapestFruits.push(fruit);
+      }
+    }
+  }
+
+  return (cheapestFruits);
+
+}
+
+exports.cheapestFruitsSeller = function(fruitList) {
+
+  var priceList = [];
+
+  for (fruit in fruitList) {
+    for (i = 0; i < fruitList[fruit].length; i++) {
+      priceList.push(fruitList[fruit][i].price);
+    }
+  }
+
+  var cheapestFruitsSellers = [];
+
+  var cheapestPrice = Math.min.apply(null, priceList);
+
+  for (fruit in fruitList) {
+    for (i = 0; i < fruitList[fruit].length; i++) {
+      if (fruitList[fruit][i].price === 2) {
+        cheapestFruitsSellers.push(fruitList[fruit][i].shop);
+      }
+    }
+  }
+
+  return (cheapestFruitsSellers);
+
+}
+
+
+exports.orangeSellerList = function(fruitList) {
+
+  orangeShops = [];
+
+  for (var shop in fruitList.oranges) {
+    orangeShops.push(fruitList.oranges[shop].shop);
+  }
+
+  return (orangeShops);
+
 }
