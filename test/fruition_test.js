@@ -87,7 +87,7 @@ describe('fruition', function() {
        [ { shop: 'Woolingsworth', price: 12 },
          { shop: 'Chockers', price: 4 },
          { shop: 'Pickle_pay', price: 7 },
-         { shop: 'Kwakspar', price: 9 } ] });
+         { shop: 'Kwakspar', price: 9 } ] }, 2);
     assert.deepEqual(result, ['apples', 'bananas']);
   })
 
@@ -107,7 +107,7 @@ describe('fruition', function() {
        [ { shop: 'Woolingsworth', price: 12 },
          { shop: 'Chockers', price: 4 },
          { shop: 'Pickle_pay', price: 7 },
-         { shop: 'Kwakspar', price: 9 } ] });
+         { shop: 'Kwakspar', price: 9 } ] }, 2);
     assert.deepEqual(result, ['Shopwrong', 'Chockers']);
   })
 
