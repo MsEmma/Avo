@@ -1,31 +1,10 @@
 var inputJSON = {
 
-  "Woolingsworth": {
-    "apples": 4,
-    "bananas": 3,
-    "oranges": 12
-  },
-
-  "Chockers": {
-    "bananas": 2,
-    "apples": 5,
-    "oranges": 4
-  },
-
-  "Pickle_pay": {
-    "bananas": 4,
-    "oranges": 7
-  },
-
-  "Shopwrong": {
-    "apples": 2,
-    "bananas": 3
-  },
-
-  "Kwakspar": {
-    "oranges": 9,
-    "apples": 4
-  }
+  "Woolingsworth": { "apples": 4, "bananas": 3, "oranges": 12 },
+  "Chockers": { "bananas": 2, "apples": 5, "oranges": 4 },
+  "Pickle_pay": { "bananas": 4, "oranges": 7 },
+  "Shopwrong": { "apples": 2, "bananas": 3 },
+  "Kwakspar": { "oranges": 9, "apples": 4 }
 };
 
 function getFruitList() {
@@ -54,7 +33,6 @@ function getFruitList() {
   }
 
   return fruitList;
-
 }
 
 exports.cheapOrangesSeller = function(fruitList) {
@@ -67,7 +45,6 @@ exports.cheapOrangesSeller = function(fruitList) {
   var cheapestOrangesSeller = cheapOranShop.shop
 
   return (cheapestOrangesSeller);
-
 }
 
 exports.appleSellersPricesAsc = function(fruitList) {
@@ -77,7 +54,6 @@ exports.appleSellersPricesAsc = function(fruitList) {
   })
 
   return (fruitList.apples);
-
 }
 
 exports.appleSellersPricesDesc = function(fruitList) {
@@ -87,10 +63,9 @@ exports.appleSellersPricesDesc = function(fruitList) {
   })
 
   return (fruitList.apples);
-
 }
 
-function getPriceList(fruitList) {
+function getCheapestPrice(fruitList) {
 
   var priceList = [];
 
@@ -103,7 +78,6 @@ function getPriceList(fruitList) {
   var cheapestPrice = Math.min.apply(null, priceList);
 
   return (cheapestPrice);
-
 }
 
 exports.cheapestFruit = function(fruitList, cheapestPrice) {
@@ -119,7 +93,6 @@ exports.cheapestFruit = function(fruitList, cheapestPrice) {
   }
 
   return (cheapestFruits);
-
 }
 
 exports.cheapestFruitsSeller = function(fruitList, cheapestPrice) {
@@ -135,7 +108,6 @@ exports.cheapestFruitsSeller = function(fruitList, cheapestPrice) {
   }
 
   return (cheapestFruitsSellers);
-
 }
 
 exports.orangeSellerList = function(fruitList) {
@@ -147,5 +119,4 @@ exports.orangeSellerList = function(fruitList) {
   }
 
   return (orangeShops);
-
 }
